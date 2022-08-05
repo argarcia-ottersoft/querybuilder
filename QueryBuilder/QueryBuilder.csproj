@@ -12,12 +12,12 @@
     <!-- NuGet settings -->
     <PackageId>SqlKata</PackageId>
     <PackageTags>sql;query-builder;dynamic-query</PackageTags>
-    <PackageReleaseNotes>https://github.com/sqlkata/querybuilder</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/sqlkata/querybuilder</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/argarcia-ottersoft/querybuilder</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/argarcia-ottersoft/querybuilder</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/sqlkata/querybuilder</RepositoryUrl>
+    <RepositoryUrl>https://github.com/argarcia-ottersoft/querybuilder</RepositoryUrl>
 
     <!-- SourceLink settings -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
