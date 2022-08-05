@@ -64,9 +64,11 @@ namespace SqlKata
             return this;
         }
 
-        public Query Select(Func<Query, Query> callback, string alias)
+        public Query Select(Action<Query> callback, string alias)
         {
-            return Select(callback.Invoke(NewChild()), alias);
+            var query = NewChild();
+            callback(query);
+            return Select(query, alias);
         }
     }
 }

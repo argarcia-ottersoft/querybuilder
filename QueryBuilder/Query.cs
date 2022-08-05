@@ -77,16 +77,16 @@ namespace SqlKata
             return this;
         }
 
-        public Query For(string engine, Func<Query, Query> fn)
+        public Query For(string engine, Action<Query> fn)
         {
             EngineScope = engine;
 
-            var result = fn.Invoke(this);
+            fn(this);
 
             // reset the engine
             EngineScope = null;
 
-            return result;
+            return this;
         }
 
         public Query With(Query query)
@@ -111,9 +111,11 @@ namespace SqlKata
             });
         }
 
-        public Query With(Func<Query, Query> fn)
+        public Query With(Action<Query> fn)
         {
-            return With(fn.Invoke(new Query()));
+            var query = new Query();
+            fn(query);
+            return With(query);
         }
 
         public Query With(string alias, Query query)
@@ -121,9 +123,11 @@ namespace SqlKata
             return With(query.As(alias));
         }
 
-        public Query With(string alias, Func<Query, Query> fn)
+        public Query With(string alias, Action<Query> fn)
         {
-            return With(alias, fn.Invoke(new Query()));
+            var query = new Query();
+            fn(query);
+            return With(alias, query);
         }
 
         /// <summary>
@@ -234,16 +238,19 @@ namespace SqlKata
         /// <param name="whenTrue">Invoked when the condition is true</param>
         /// <param name="whenFalse">Optional, invoked when the condition is false</param>
         /// <returns></returns>
-        public Query When(bool condition, Func<Query, Query> whenTrue, Func<Query, Query> whenFalse = null)
+        public Query When(bool condition, Action<Query> whenTrue, Action<Query> whenFalse = null)
         {
             if (condition && whenTrue != null)
             {
-                return whenTrue.Invoke(this);
+
+                whenTrue(this);
+                return this;
             }
 
             if (!condition && whenFalse != null)
             {
-                return whenFalse.Invoke(this);
+                whenFalse(this);
+                return this;
             }
 
             return this;
@@ -255,11 +262,12 @@ namespace SqlKata
         /// <param name="condition"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        public Query WhenNot(bool condition, Func<Query, Query> callback)
+        public Query WhenNot(bool condition, Action<Query> callback)
         {
             if (!condition)
             {
-                return callback.Invoke(this);
+                callback(this);
+                return this;
             }
 
             return this;

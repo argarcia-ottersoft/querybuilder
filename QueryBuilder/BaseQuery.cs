@@ -297,13 +297,14 @@ namespace SqlKata
             });
         }
 
-        public Q From(Func<Query, Query> callback, string alias = null)
+        public Q From(Action<Query> callback, string alias = null)
         {
             var query = new Query();
 
             query.SetParent((Q)this);
 
-            return From(callback.Invoke(query), alias);
+            callback(query);
+            return From(query, alias);
         }
 
     }

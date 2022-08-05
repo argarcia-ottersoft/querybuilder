@@ -45,13 +45,14 @@ namespace SqlKata
             return Union(query, true);
         }
 
-        public Query Union(Func<Query, Query> callback, bool all = false)
+        public Query Union(Action<Query> callback, bool all = false)
         {
-            var query = callback.Invoke(new Query());
+            var query = new Query();
+            callback(query);
             return Union(query, all);
         }
 
-        public Query UnionAll(Func<Query, Query> callback)
+        public Query UnionAll(Action<Query> callback)
         {
             return Union(callback, true);
         }
@@ -68,13 +69,14 @@ namespace SqlKata
             return Except(query, true);
         }
 
-        public Query Except(Func<Query, Query> callback, bool all = false)
+        public Query Except(Action<Query> callback, bool all = false)
         {
-            var query = callback.Invoke(new Query());
+            var query = new Query();
+            callback(query);
             return Except(query, all);
         }
 
-        public Query ExceptAll(Func<Query, Query> callback)
+        public Query ExceptAll(Action<Query> callback)
         {
             return Except(callback, true);
         }
@@ -90,13 +92,14 @@ namespace SqlKata
             return Intersect(query, true);
         }
 
-        public Query Intersect(Func<Query, Query> callback, bool all = false)
+        public Query Intersect(Action<Query> callback, bool all = false)
         {
-            var query = callback.Invoke(new Query());
+            var query = new Query();
+            callback(query);
             return Intersect(query, all);
         }
 
-        public Query IntersectAll(Func<Query, Query> callback)
+        public Query IntersectAll(Action<Query> callback)
         {
             return Intersect(callback, true);
         }

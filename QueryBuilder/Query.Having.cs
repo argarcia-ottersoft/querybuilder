@@ -121,9 +121,10 @@ namespace SqlKata
         /// </summary>
         /// <param name="callback"></param>
         /// <returns></returns>
-        public Query Having(Func<Query, Query> callback)
+        public Query Having(Action<Query> callback)
         {
-            var query = callback.Invoke(NewChild());
+            var query = NewChild();
+            callback(query);
 
             return AddComponent("having", new NestedCondition<Query>
             {
@@ -133,17 +134,17 @@ namespace SqlKata
             });
         }
 
-        public Query HavingNot(Func<Query, Query> callback)
+        public Query HavingNot(Action<Query> callback)
         {
             return Not().Having(callback);
         }
 
-        public Query OrHaving(Func<Query, Query> callback)
+        public Query OrHaving(Action<Query> callback)
         {
             return Or().Having(callback);
         }
 
-        public Query OrHavingNot(Func<Query, Query> callback)
+        public Query OrHavingNot(Action<Query> callback)
         {
             return Not().Or().Having(callback);
         }
@@ -412,9 +413,10 @@ namespace SqlKata
                 Query = query,
             });
         }
-        public Query HavingIn(string column, Func<Query, Query> callback)
+        public Query HavingIn(string column, Action<Query> callback)
         {
-            var query = callback.Invoke(new Query());
+            var query = new Query();
+            callback(query);
 
             return HavingIn(column, query);
         }
@@ -424,7 +426,7 @@ namespace SqlKata
             return Or().HavingIn(column, query);
         }
 
-        public Query OrHavingIn(string column, Func<Query, Query> callback)
+        public Query OrHavingIn(string column, Action<Query> callback)
         {
             return Or().HavingIn(column, callback);
         }
@@ -433,7 +435,7 @@ namespace SqlKata
             return Not().HavingIn(column, query);
         }
 
-        public Query HavingNotIn(string column, Func<Query, Query> callback)
+        public Query HavingNotIn(string column, Action<Query> callback)
         {
             return Not().HavingIn(column, callback);
         }
@@ -443,7 +445,7 @@ namespace SqlKata
             return Or().Not().HavingIn(column, query);
         }
 
-        public Query OrHavingNotIn(string column, Func<Query, Query> callback)
+        public Query OrHavingNotIn(string column, Action<Query> callback)
         {
             return Or().Not().HavingIn(column, callback);
         }
@@ -456,9 +458,10 @@ namespace SqlKata
         /// <param name="op"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        public Query Having(string column, string op, Func<Query, Query> callback)
+        public Query Having(string column, string op, Action<Query> callback)
         {
-            var query = callback.Invoke(NewChild());
+            var query = NewChild();
+            callback(query);
 
             return Having(column, op, query);
         }
@@ -479,7 +482,7 @@ namespace SqlKata
         {
             return Or().Having(column, op, query);
         }
-        public Query OrHaving(string column, string op, Func<Query, Query> callback)
+        public Query OrHaving(string column, string op, Action<Query> callback)
         {
             return Or().Having(column, op, callback);
         }
@@ -503,10 +506,12 @@ namespace SqlKata
                 IsOr = GetOr(),
             });
         }
-        public Query HavingExists(Func<Query, Query> callback)
+        public Query HavingExists(Action<Query> callback)
         {
             var childQuery = new Query().SetParent(this);
-            return HavingExists(callback.Invoke(childQuery));
+            callback(childQuery);
+
+            return HavingExists(childQuery);
         }
 
         public Query HavingNotExists(Query query)
@@ -514,7 +519,7 @@ namespace SqlKata
             return Not().HavingExists(query);
         }
 
-        public Query HavingNotExists(Func<Query, Query> callback)
+        public Query HavingNotExists(Action<Query> callback)
         {
             return Not().HavingExists(callback);
         }
@@ -523,7 +528,7 @@ namespace SqlKata
         {
             return Or().HavingExists(query);
         }
-        public Query OrHavingExists(Func<Query, Query> callback)
+        public Query OrHavingExists(Action<Query> callback)
         {
             return Or().HavingExists(callback);
         }
@@ -531,7 +536,7 @@ namespace SqlKata
         {
             return Or().Not().HavingExists(query);
         }
-        public Query OrHavingNotExists(Func<Query, Query> callback)
+        public Query OrHavingNotExists(Action<Query> callback)
         {
             return Or().Not().HavingExists(callback);
         }
