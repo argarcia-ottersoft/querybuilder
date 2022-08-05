@@ -15,12 +15,9 @@ env:
   DOTNET_VERSION: 5.0.201
   # DOTNET_VERSION: 2.2.203
   # GitHub Packages Feed settings
-  GITHUB_FEED: https://nuget.pkg.github.com/sqlkata/
-  GITHUB_USER: ahmad-moussawi
+  GITHUB_FEED: https://nuget.pkg.github.com/argarcia-ottersoft/
+  GITHUB_USER: argarcia-ottersoft
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # Official NuGet Feed settings
-  NUGET_FEED: https://api.nuget.org/v3/index.json
-  NUGET_KEY: ${{ secrets.NUGET_KEY }}
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -111,5 +108,3 @@ jobs:
           dotnet pack -v normal -c Release --include-symbols --include-source -p:Version=$VERSION -p:PackageVersion=$VERSION -o nupkg SqlKata.Execution/SqlKata.Execution.csproj
       - name: Push to GitHub Feed
         run: dotnet nuget push ./nupkg/*.nupkg --skip-duplicate --source $GITHUB_FEED --api-key $GITHUB_TOKEN
-      - name: Push to NuGet Feed
-        run: dotnet nuget push ./nupkg/*.nupkg --skip-duplicate --source $NUGET_FEED --api-key $NUGET_KEY
