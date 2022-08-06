@@ -8,7 +8,7 @@
     <RootNamespace>SqlKata</RootNamespace>
 
     <!-- NuGet settings -->
-    <PackageId>SqlKata.Execution</PackageId>
+    <PackageId>SqlKata.Execution.Actions</PackageId>
     <PackageTags>sql;query-builder;dynamic-query</PackageTags>
     <PackageReleaseNotes>https://github.com/argarcia-ottersoft/querybuilder</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/argarcia-ottersoft/querybuilder</PackageProjectUrl>

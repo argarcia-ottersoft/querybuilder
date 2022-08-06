@@ -10,7 +10,7 @@
     <AssemblyName>SqlKata</AssemblyName>
 
     <!-- NuGet settings -->
-    <PackageId>SqlKata</PackageId>
+    <PackageId>SqlKata.Actions</PackageId>
     <PackageTags>sql;query-builder;dynamic-query</PackageTags>
     <PackageReleaseNotes>https://github.com/argarcia-ottersoft/querybuilder</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/argarcia-ottersoft/querybuilder</PackageProjectUrl>
